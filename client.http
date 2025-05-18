@@ -1,0 +1,29 @@
+POST http://localhost:3000/api/v1/signup
+Content-Type: application/json
+
+{
+    "username":"human112@gmail.com",
+    "password":"passssss",
+    "type":"admin"
+}
+###
+
+POST http://localhost:3000/api/v1/signin
+Content-Type: application/json
+
+{
+    "username":"human112@gmail.com",
+    "password":"passssss"
+}
+###
+
+POST http://localhost:3000/api/v1/user/metadata
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTlwamtta2wwMDFscXB2MGlnYWQxbHVkIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNzQ1MTU1NTc2LCJleHAiOjE3NDUxNTkxNzZ9.yCg0-Tro2eXwU9NWHyfM2437QLdZhvr6kiNKJ9HKitw
+
+{
+    "avatarId": "cm9pj94tt0004qpv00ophkwod"
+}
+###
+GET http://localhost:3000/api/v1/user/metadata/bulk?ids=[cm9s7kyyn0008qpn8jwy005ov,cm9s7g4yv0003qpn8jahxrlrq]
+Content-Type: application/json
