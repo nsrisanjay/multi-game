@@ -9,6 +9,7 @@ export class RoomManager {
         this.rooms = new Map();
     }
     // create an instance if not present
+    // singleton class...ie only one instance of that class exists globally.
     static getInstance() {
         if (!this.instance) {
             this.instance = new RoomManager();
@@ -29,7 +30,7 @@ export class RoomManager {
             this.rooms.set(spaceId, [user]);
             return;
         }
-        // add user to a space using the above declared map ds.
+        // add user to a space using the above declared map dataStructure.
         this.rooms.set(spaceId, [...(this.rooms.get(spaceId) ?? []), user]);
     }
 

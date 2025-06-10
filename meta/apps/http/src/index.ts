@@ -3,7 +3,12 @@ import express from "express";
 const app = express();
 import { router } from "./routes/v1";
 import client from "@repo/db/client";
+const cors = require('cors');
 
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true, // if using cookies or authorization headers
+}));
 app.use(express.json())
 app.use("/api/v1",router)
 
