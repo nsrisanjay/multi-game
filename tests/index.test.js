@@ -1,5 +1,7 @@
 const axios2 = require("axios");
 
+const WebSocket = require('ws');
+
 const BACKEND_URL = "http://localhost:3000"
 const WS_URL = "ws://localhost:8080"
 
@@ -39,7 +41,7 @@ const axios = {
 }
 
 // done all passed
-describe.skip("Authentication", () => {
+describe("Authentication", () => {
     test('User is able to sign up only once', async () => {
         const username = "sanjay" + Math.random(); 
         const password = "123456";
@@ -90,7 +92,7 @@ describe.skip("Authentication", () => {
     })
 
     test('Signin fails if the username and password are incorrect', async() => {
-        const username = `kirat-${Math.random()}`
+        const username = `sanjay-${Math.random()}`
         const password = "123456"
 
         await axios.post(`${BACKEND_URL}/api/v1/signup`, {
@@ -109,7 +111,7 @@ describe.skip("Authentication", () => {
 })
 
 // done all passed
-describe.skip("User metadata endpoint", () => {
+describe("User metadata endpoint", () => {
     let token = "";
     let avatarId = ""
 
@@ -174,13 +176,13 @@ describe.skip("User metadata endpoint", () => {
 });
 
 // done all passed
-describe.skip("User avatar information", () => {
+describe("User avatar information", () => {
     let avatarId = "";
     let token = "";
     let userId = "";
 
     beforeAll(async () => {
-        const username = `kirat-${Math.random()}`
+        const username = `sanjay-${Math.random()}`
         const password = "123456"
  
         const signupResponse = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
@@ -226,7 +228,7 @@ describe.skip("User avatar information", () => {
 })
 
 // done all passed
-describe.skip("Space information", () => {
+describe("Space information", () => {
     let mapId;
     let element1Id;
     let element2Id;
@@ -439,7 +441,7 @@ describe.skip("Space information", () => {
 })
 
 // done all passed
-describe.skip("Arena endpoints", () => {
+describe("Arena endpoints", () => {
     let mapId;
     let element1Id;
     let element2Id;
@@ -450,7 +452,7 @@ describe.skip("Arena endpoints", () => {
     let spaceId;
 
     beforeAll(async () => {
-        const username = `kirat-${Math.random()}`
+        const username = `sanjay-${Math.random()}`
         const password = "123456"
  
         const signupResponse = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
@@ -627,7 +629,7 @@ describe.skip("Arena endpoints", () => {
 })
 
 // done all passed
-describe.skip("Admin Endpoints", () => {
+describe("Admin Endpoints", () => {
     let adminToken;
     let adminId;
     let userToken;
@@ -777,8 +779,8 @@ describe.skip("Admin Endpoints", () => {
     })
 });
 
-// not done yet
-describe.skip("Websocket tests", () => {
+// done all passed
+describe("Websocket tests", () => {
     let adminToken;
     let adminUserId;
     let userToken;
@@ -813,7 +815,7 @@ describe.skip("Websocket tests", () => {
     }
 
     async function setupHTTP() {
-        const username = `kirat-${Math.random()}`
+        const username = `sanjay-${Math.random()}`
         const password = "123456"
         const adminSignupResponse = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
             username,
@@ -907,7 +909,7 @@ describe.skip("Websocket tests", () => {
         ws1 = new WebSocket(WS_URL)
 
         ws1.onmessage = (event) => {
-            console.log("got back adata 1")
+            console.log("got back data 1")
             console.log(event.data)
             
             ws1Messages.push(JSON.parse(event.data))

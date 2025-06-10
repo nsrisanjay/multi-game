@@ -19,3 +19,8 @@ meta/packages/db/node_modules
 meta/packages/db/.env
 
 tests/node_modules
+
+meta/apps/frontend/node_modules
+
+meta/apps/frontend/public
+
