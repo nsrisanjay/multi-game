@@ -4,7 +4,7 @@ import { publicApi } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 function Signin() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     let [details,setDetails] = useState({username:"",password:""});
     let [error,setError] = useState("");
     const setToken  = auth.setToken;
@@ -22,7 +22,7 @@ function Signin() {
             {
                 setToken(res.data.token);
                 console.log("Logged in!!!!");
-                // navigate("/dashboard");
+                navigate("/dashboard");
             }
             else{
                 setError("Invalid credentials");

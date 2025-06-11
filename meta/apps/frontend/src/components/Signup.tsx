@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Signup() {
     const [details, setDetails] = useState({ username: "", password: "", type: "user" });
     const [error, setError] = useState("");
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDetails({ ...details, [e.target.name]: e.target.value });
@@ -19,7 +19,7 @@ function Signup() {
             const res = await publicApi.post('/signup', details);
             if (res.status === 200) {
                 alert('Signup successful');
-                // navigate('/login');
+                navigate('/login');
             } else {
                 setError('Signup failed');
             }
