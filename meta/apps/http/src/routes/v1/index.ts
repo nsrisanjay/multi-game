@@ -113,6 +113,18 @@ router.get('/avatars',async(req,res)=>{
 
 });
 
+router.get('/maps',async(req,res)=>{
+    const maps = await client.map.findMany();
+    res.json({
+        maps: maps.map(e=>({
+            id:e.id,
+            name:e.name,
+            dimensions:`${e.width}x${e.height}`,
+            thumbnail:e.thumbnail
+        }))
+    })
+})
+
 router.use('/user',userRouter)
 router.use('/space',spaceRouter)
 router.use('/admin',adminRouter)

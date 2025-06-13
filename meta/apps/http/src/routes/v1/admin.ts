@@ -22,8 +22,9 @@ adminRouter.post('/element',adminMiddleware,async(req,res)=>{
         }
     })
 
-    res.json({id:newElement.id
-        , message:"element created"
+    res.json({
+        id:newElement.id,
+        message:"element created"
     });
 });
 
