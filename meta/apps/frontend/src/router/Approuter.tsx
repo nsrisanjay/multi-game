@@ -4,6 +4,7 @@ import { auth } from "../auth/auth";
 import Landing from "../components/Landing";
 import Signin from "../components/Signin";
 import Dashboard from "../components/Dashboard";
+import ProtectedLayout from "../components/ProtectedLayout";
 import type { JSX } from "react";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
@@ -17,14 +18,20 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<Signin />} />
+
+        {/* Protected Routes under layout */}
         <Route
-          path="/dashboard"
+          path="/"
           element={
             <PrivateRoute>
-              <Dashboard />
+              <ProtectedLayout />
             </PrivateRoute>
           }
-        />
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+          {/* Add more protected routes here */}
+        </Route>
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
