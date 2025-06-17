@@ -18,6 +18,11 @@ userRouter.get('/getuserdetails',userMiddleware,async(req,res)=>{
                 select:{
                     imageUrl:true
                 }
+            },
+            spaces:{
+                select:{
+                    id:true
+                }
             }
         }
     })
@@ -31,7 +36,8 @@ userRouter.get('/getuserdetails',userMiddleware,async(req,res)=>{
             id:currentUser.id,
             username:currentUser.username,
             avatar:currentUser.avatar?.imageUrl,
-            type:currentUser.role
+            type:currentUser.role,
+            spaces:currentUser.spaces.map(e=>{e.id})
         }
     });
 });
