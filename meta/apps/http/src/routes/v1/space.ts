@@ -2,7 +2,6 @@ import { Router } from "express";
 import { AddElementSchema, CreateElementSchema, CreateSpaceSchema, DeleteElementSchema } from "../../types";
 import { userMiddleware } from "../../middlewares/user";
 import client from '@repo/db/client'
-import { empty } from "@prisma/client/runtime/library";
 
 
 export const spaceRouter = Router()
@@ -57,7 +56,8 @@ spaceRouter.post('/',userMiddleware,async(req,res)=>{
                 name: parsedData.data.name,
                 width: map.width,
                 height: map.height,
-                creatorId: req.userId as string
+                creatorId: req.userId as string,
+                mapId:parsedData.data.mapId
             }
         })
         // the above returns a space id
@@ -112,7 +112,7 @@ spaceRouter.delete('/:spaceId',userMiddleware,async(req,res)=>{
             id: req.params.spaceId
         },
         select:{
-            creatorId: true
+            creatorId: true,
         }
     })
     if(!space)
@@ -200,6 +200,7 @@ spaceRouter.get('/:spaceId',async(req,res)=>{
         select:{
             width:true,
             height:true,
+            mapId:true,
             elements:{
                 include:{
                     element:true
@@ -216,6 +217,7 @@ spaceRouter.get('/:spaceId',async(req,res)=>{
     }
     res.json({
         dimensions: `${space.width}x${space.height}`,
+        mapId:space.mapId,
         elements: space.elements.map(e => ({
             id: e.id,
             element:{

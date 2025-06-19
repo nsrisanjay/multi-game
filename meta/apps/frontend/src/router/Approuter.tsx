@@ -8,6 +8,7 @@ import ProtectedLayout from "../components/ProtectedLayout";
 import type { JSX } from "react";
 import Joinspace from "../components/Joinspace";
 import Profile from "../components/Profile";
+import ExploreSpace from "../components/ExploreSpace";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const token = auth.getToken();
@@ -33,6 +34,7 @@ export default function AppRouter() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="joinspace" element={<Joinspace />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="explorespace" element={<ExploreSpace/>} />
           {/* Add more protected routes here */}
         </Route>
 

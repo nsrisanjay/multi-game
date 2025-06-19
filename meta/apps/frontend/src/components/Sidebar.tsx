@@ -9,6 +9,7 @@ export default function Sidebar() {
         <li><Link to="/profile" className="block py-2 hover:bg-gray-700 rounded px-2">Profile</Link></li>
         <li><Link to="/dashboard" className="block py-2 hover:bg-gray-700 rounded px-2">Dashboard</Link></li>
         <li><Link to="/joinspace" className="block py-2 hover:bg-gray-700 rounded px-2">Join Space</Link></li>
+        <li><Link to="/explorespace" className="block py-2 hover:bg-gray-700 rounded px-2">Explore Space</Link></li>
       </ul>
     </div>
   );
