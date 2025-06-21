@@ -40,7 +40,8 @@ spaceRouter.post('/',userMiddleware,async(req,res)=>{
         select:{
             width: true,
             height: true,
-            mapElements:true
+            mapElements:true,
+            thumbnail:true
         }
     })
 
@@ -57,7 +58,8 @@ spaceRouter.post('/',userMiddleware,async(req,res)=>{
                 width: map.width,
                 height: map.height,
                 creatorId: req.userId as string,
-                mapId:parsedData.data.mapId
+                mapId:parsedData.data.mapId,
+                thumbnail:map.thumbnail
             }
         })
         // the above returns a space id
@@ -143,7 +145,8 @@ spaceRouter.get('/all',userMiddleware,async(req,res)=>{
             id:e.id,
             name:e.name,
             thumbnail: e.thumbnail,
-            dimensions: `${e.width}x${e.height}`
+            dimensions: `${e.width}x${e.height}`,
+            mapId:e.mapId
         })
     )});
 });
@@ -189,7 +192,6 @@ spaceRouter.post('/element',userMiddleware,async(req,res)=>{
     })
     res.status(200).json({message: "element added successfully"});
 });
-
 
 
 spaceRouter.get('/:spaceId',async(req,res)=>{
