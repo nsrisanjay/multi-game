@@ -23,7 +23,8 @@ spaceRouter.post('/',userMiddleware,async(req,res)=>{
                 name: parsedData.data.name,
                 height: parseInt(height),
                 width: parseInt(width),
-                creatorId: req.userId as string
+                creatorId: req.userId as string,
+                privacy: parsedData.data.privacy
             }
         })
         res.json({
@@ -59,7 +60,8 @@ spaceRouter.post('/',userMiddleware,async(req,res)=>{
                 height: map.height,
                 creatorId: req.userId as string,
                 mapId:parsedData.data.mapId,
-                thumbnail:map.thumbnail
+                thumbnail:map.thumbnail,
+                privacy:parsedData.data.privacy
             }
         })
         // the above returns a space id
@@ -193,6 +195,32 @@ spaceRouter.post('/element',userMiddleware,async(req,res)=>{
     res.status(200).json({message: "element added successfully"});
 });
 
+spaceRouter.get('/allspaces', userMiddleware, async (req, res) => {
+    const spacesRetrieved = await client.space.findMany({
+        where: {
+            privacy: false
+        },
+        select: {
+            thumbnail: true,
+            id: true,
+            width: true,
+            height: true,
+            mapId: true,
+            name:true
+        }
+    });
+
+    res.status(200).json({
+        spacesAvailable: spacesRetrieved.map(space => ({
+            id: space.id,
+            thumbnail: space.thumbnail,
+            width: space.width,
+            height: space.height,
+            mapId: space.mapId,
+            name:space.name
+        }))
+    });
+});
 
 spaceRouter.get('/:spaceId',async(req,res)=>{
     const space = await client.space.findUnique({
@@ -234,3 +262,5 @@ spaceRouter.get('/:spaceId',async(req,res)=>{
         }))
     })
 });
+
+

@@ -29,6 +29,7 @@ export const UpdateMetadataSchema = z.object({
 
 export const CreateSpaceSchema = z.object({
     name: z.string(),
+    privacy:z.boolean(),
     dimensions : z.string().regex(/^[0-9]{1,5}x[0-9]{1,5}$/),
     mapId: z.string().optional(),
     thumbnail:z.string().optional()

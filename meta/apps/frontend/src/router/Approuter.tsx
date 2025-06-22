@@ -10,6 +10,7 @@ import Joinspace from "../components/Joinspace";
 import Profile from "../components/Profile";
 import ExploreSpace from "../components/ExploreSpace";
 import MapExplore from "../components/MapExplore";
+import Multispace from "../components/Multispace";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const token = auth.getToken();
@@ -35,12 +36,13 @@ export default function AppRouter() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="joinspace" element={<Joinspace />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="explorespace" element={<ExploreSpace/>} />
-          <Route path="mapExplore/:mapId" element={<MapExplore/>}/>
+          <Route path="explorespace" element={<ExploreSpace />} />
+          <Route path="mapExplore/:mapId" element={<MapExplore />} />
+          <Route path ="multi-space/:spaceId" element={<Multispace />} />
           {/* Add more protected routes here */}
         </Route>
 
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
     </Router>
   );

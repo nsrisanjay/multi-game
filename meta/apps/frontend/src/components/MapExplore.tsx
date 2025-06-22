@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
 import Phaser from 'phaser'
 import { useSearchParams,useParams } from 'react-router-dom'
 
-    const MapExplore: React.FC = () => {
+    
+const MapExplore: React.FC = () => {
+
+    const navigate = useNavigate();
     const gameRef = useRef<HTMLDivElement>(null);
     const [params] = useSearchParams();
     const {spaceId} = useParams();
@@ -13,6 +16,9 @@ import { useSearchParams,useParams } from 'react-router-dom'
     width = parseInt(params.get('width') || '500');
      height = parseInt(params.get('height') || '500');
     // console.log(mapId);
+    const GoBackFunc = ()=>{
+        navigate('/explorespace')
+    }
     useEffect(() => {
         class Myscene extends Phaser.Scene {
             player!: Phaser.Physics.Arcade.Sprite;
@@ -103,7 +109,17 @@ import { useSearchParams,useParams } from 'react-router-dom'
             game.destroy(true);
         };
     }, [])
-    return <div ref={gameRef} />;
+    return <div ref={gameRef} >
+       <button
+  onClick={() => GoBackFunc()}
+  className="flex items-center gap-2 px-4 py-2 m-3 bg-gray text-gray-800 rounded-lg hover:bg-gray-200 transition-colors duration-200"
+>
+  <span className="text-xl">←</span>
+  <span>Back</span>
+</button>
+
+
+    </div>;
 }
 
 export default MapExplore;

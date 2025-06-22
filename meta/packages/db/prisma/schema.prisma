@@ -26,6 +26,7 @@ model User {
 
 model Space {
   id        String  @id @unique @default(cuid())
+  privacy   Boolean
   mapId     String?
   name      String
   width     Int

@@ -10,7 +10,7 @@ function Dashboard() {
   const [spaces, setSpace] = useState<{ id: string, name: string, thumbnail: string, dimensions: string }[]>([]);
   const [user, setUser] = useState<{ id: string, username: string, avatar: string, type: string }>();
   const [maps, setMaps] = useState<{ id: string, name: string, dimensions: string, thumbnail: string }[]>([]);
-  const [newSpace, setNewSpace] = useState<{ name: string, dimensions: string, mapId: string }>({ name: "", dimensions: "", mapId: "" });
+  const [newSpace, setNewSpace] = useState<{ name: string, dimensions: string, mapId: string,privacy:boolean }>({ name: "", dimensions: "", mapId: "",privacy:false });
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
@@ -34,6 +34,7 @@ function Dashboard() {
  
 
   const handleCreateSpace = () => {
+    console.log(newSpace);
     api.post('/space', newSpace)
       .then(() => {
         setCreateModalOpen(false);
@@ -43,7 +44,9 @@ function Dashboard() {
   };
 
   const avatarUrl = user?.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3RFDZM21teuCMFYx_AROjt-AzUwDBROFww&s";
-
+   const handlePrivacyChange = (value: boolean) => {
+    setNewSpace(prev => ({ ...prev, privacy: value }));
+  };
   return (
     <div className="p-4 space-y-4">
       
@@ -74,7 +77,30 @@ function Dashboard() {
         className="w-full border px-3 py-2 rounded"
         onChange={(e) => setNewSpace({ ...newSpace, dimensions: e.target.value })}
       />
+      {/* Privacy selection */}
+      <div className="flex items-center space-x-4">
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            name="privacy"
+            value="public"
+            checked={!newSpace.privacy}
+            onChange={() => handlePrivacyChange(false)}
+          />
+          <span>Public</span>
+        </label>
 
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            name="privacy"
+            value="private"
+            checked={newSpace.privacy}
+            onChange={() => handlePrivacyChange(true)}
+          />
+          <span>Private</span>
+        </label>
+      </div>
       {/* Map thumbnails as clickable buttons */}
 <div>
   <p className="mb-2 font-medium">Select a Map:</p>
