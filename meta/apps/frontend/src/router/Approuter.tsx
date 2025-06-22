@@ -42,7 +42,7 @@ export default function AppRouter() {
           {/* Add more protected routes here */}
         </Route>
 
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
