@@ -33,8 +33,8 @@ export class User {
     initHandlers() {
         this.ws.on("message", async (data) => {
             // listens for messages from client
-            console.log(data)
             const parsedData = JSON.parse(data.toString());
+            console.log(parsedData)
             switch (parsedData.type) {
                 // based on the type of message, respective action is triggered.
                 case "join":
@@ -58,14 +58,14 @@ export class User {
                     }
                     this.spaceId = spaceId
                     RoomManager.getInstance().addUser(spaceId, this);
-                    this.x = Math.floor(Math.random() * space?.width);
-                    this.y = Math.floor(Math.random() * space?.height);
+                    // this.x = Math.floor(Math.random() * space?.width);
+                    // this.y = Math.floor(Math.random() * space?.height);
                     this.send({
                         type: "space-joined",
                         payload: {
                             spawn: {
-                                x: this.x,
-                                y: this.y
+                                x: 100,
+                                y: 100
                             },
                             users: RoomManager.getInstance().rooms.get(spaceId)?.filter(x => x.id !== this.id)?.map((u) => ({id: u.id})) ?? []
                         }
@@ -110,13 +110,14 @@ export class User {
     }
 
     destroy() {
+        RoomManager.getInstance().removeUser(this, this.spaceId!);
         RoomManager.getInstance().broadcast({
             type: "user-left",
             payload: {
-                userId: this.userId
+                userId: this.userId,
+                len:RoomManager.getInstance().rooms.get(this.spaceId!)?.length,
             }
         }, this, this.spaceId!);
-        RoomManager.getInstance().removeUser(this, this.spaceId!);
     }
 
     send(payload: OutgoingMessage) {

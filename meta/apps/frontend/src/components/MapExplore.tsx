@@ -14,7 +14,7 @@ const MapExplore: React.FC = () => {
     let width,height;
     const mapId = params.get('mapId');
     width = parseInt(params.get('width') || '500');
-     height = parseInt(params.get('height') || '500');
+    height = parseInt(params.get('height') || '500');
     // console.log(mapId);
     const GoBackFunc = ()=>{
         navigate('/explorespace')
@@ -117,8 +117,6 @@ const MapExplore: React.FC = () => {
   <span className="text-xl">←</span>
   <span>Back</span>
 </button>
-
-
     </div>;
 }
 
