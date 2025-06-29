@@ -67,7 +67,7 @@ export class User {
                                 x: 100,
                                 y: 100
                             },
-                            users: RoomManager.getInstance().rooms.get(spaceId)?.filter(x => x.id !== this.id)?.map((u) => ({id: u.id})) ?? []
+                            users: RoomManager.getInstance().rooms.get(spaceId)?.filter(x => x.id !== this.id)?.map((u) => ({userId: u.userId,x:this.x,y:this.y})) ?? []
                         }
                     });
                     RoomManager.getInstance().broadcast({
@@ -84,12 +84,13 @@ export class User {
                     const moveY = parsedData.payload.y;
                     const xDisplacement = Math.abs(this.x - moveX);
                     const yDisplacement = Math.abs(this.y - moveY);
-                    if ((xDisplacement == 1 && yDisplacement== 0) || (xDisplacement == 0 && yDisplacement == 1)) {
+                    if ((xDisplacement == 1 || yDisplacement== 0) || (xDisplacement == 0 || yDisplacement == 1)) {
                         this.x = moveX;
                         this.y = moveY;
                         RoomManager.getInstance().broadcast({
                             type: "movement",
                             payload: {
+                                userId:this.userId,
                                 x: this.x,
                                 y: this.y
                             }

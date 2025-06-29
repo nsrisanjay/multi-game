@@ -22,7 +22,8 @@ export class RoomManager {
             return;
         }
         // removes user based on id provided during creation of an User object
-        this.rooms.set(spaceId, (this.rooms.get(spaceId)?.filter((u) => u.id !== user.id) ?? []));
+        // new change, remove user based on userId directly, removing the need for use of another id.
+        this.rooms.set(spaceId, (this.rooms.get(spaceId)?.filter((u) => u.userId !== user.userId) ?? []));
     }
 
     public addUser(spaceId: string, user: User) {
@@ -40,7 +41,7 @@ export class RoomManager {
             return;
         }
         this.rooms.get(roomId)?.forEach((u) => {
-            if (u.id !== user.id) {
+            if (u.userId !== user.userId) {
                 u.send(message);
             }
         });
