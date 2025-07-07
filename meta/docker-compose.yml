@@ -1,0 +1,64 @@
+version: '0.0.1'
+services:
+    db:
+      image: postgres:15
+      container_name: elegant_perlman
+      restart: always
+      environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: mypass
+          POSTGRES_DB: postgres
+      volumes:
+        - postgres-data:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+
+    # HTTP SERVER
+    http:
+      build:
+        context: .
+        dockerfile: Docker/Dockerfile.http-server
+      container_name: metaverse_http
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+      environment:
+        DATABASE_URL: postgresql://postgres:mypass@localhost:5432/postgres
+    
+    # WEBSOCKETS
+
+    websocks:
+      build:
+        context: .
+        dockerfile: Docker/Dockerfile.websocks
+      container_name: metaverse_websocks
+      ports:
+        - "8080:8080"
+      depends_on: 
+        - db
+      environment: 
+        DATABASE_URL: postgresql://postgres:mypass@localhost:5432/postgres
+    
+    # FRONTEND
+
+    frontend:
+      build:
+        context: .
+        dockerfile: Docker/Dockerfile.frontend
+      container_name: metaverse_frontend
+      ports:
+        - "5173:5173"
+      depends_on:
+        - http
+      environment:
+        VITE_API_URL: http://localhost:3000
+        VITE_WS_URL: ws://localhost:8080
+
+volumes:
+  postgres-data: 
+      
+
+
+
+

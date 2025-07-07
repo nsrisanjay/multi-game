@@ -42,11 +42,13 @@ export class User {
                     const spaceId = parsedData.payload.spaceId;
                     const token = parsedData.payload.token;
                     const userId = (jwt.verify(token, JWT_PASSWORD) as JwtPayload).userId
+                    // check if valid userId
                     if (!userId) {
                         this.ws.close()
                         return
                     }
                     this.userId = userId
+                    // check if valid spaceId.
                     const space = await client.space.findFirst({
                         where: {
                             id: spaceId

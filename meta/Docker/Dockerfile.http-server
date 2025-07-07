@@ -1,0 +1,20 @@
+FROM node:18-alpine AS BUILDER
+WORKDIR /app
+
+COPY package*.json ./
+COPY apps/http ./apps/http
+COPY packages ./packages
+
+# install dependencies
+RUN npm install
+
+# generate prisma client (from the http service directory)
+WORKDIR /app/apps/http
+RUN npx prisma generate --schema=../../packages/db/prisma/schema.prisma
+
+# build the app
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["node","dist/index.js"]

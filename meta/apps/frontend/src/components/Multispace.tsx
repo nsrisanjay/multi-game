@@ -45,6 +45,7 @@ const Multispace: React.FC = () => {
           frameWidth:20,
           frameHeight:20
         });
+
       }
       create() {
         const camera = this.cameras.main
